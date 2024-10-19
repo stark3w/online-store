@@ -17,9 +17,9 @@ return new class extends Migration
             $table->string('slug');
             $table->text('description');
             $table->unsignedBigInteger('catalog_id');
-            $table->unsignedBigInteger('flavor_id');
-            $table->unsignedBigInteger('grade_id');
-            $table->unsignedBigInteger('brand_id');
+            $table->unsignedBigInteger('flavor_id')->nullable();
+            $table->unsignedBigInteger('grade_id')->nullable();
+            $table->unsignedBigInteger('brand_id')->nullable();
             $table->decimal('price', 10, 2)->nullable();
             $table->text('image')->nullable();
             $table->softDeletes();

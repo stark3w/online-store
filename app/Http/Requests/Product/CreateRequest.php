@@ -27,6 +27,9 @@ class CreateRequest extends FormRequest
             'price' => 'required',
             'tags' => 'required',
             'catalog_id' => 'required',
+            'flavor_id' => 'required',
+            'grade_id' => 'required',
+            'brand_id' => 'required',
         ];
     }
 }

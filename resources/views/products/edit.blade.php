@@ -38,6 +38,46 @@
             </div>
 
             <div class="mb-3">
+                <label for="flavor">Аромат</label>
+                <select class="form-control mb-3" id="flavor" name="flavor_id">
+                    <option value="" selected disabled>Выберите аромат</option>
+                    @foreach($flavors as $flavor)
+                        <option
+                            {{ old('flavor_id') == $flavor->id ? 'selected' : '' }}
+                            value="{{ $flavor->id }}" >{{ $flavor->name }}</option>
+                    @endforeach
+
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="grade">Сорт</label>
+                <select class="form-control mb-3" id="grade" name="grade_id">
+                    <option value="" selected disabled>Выберите Сорт</option>
+                    @foreach($grades as $grade)
+                        <option
+                            {{ old('grade_id') == $grade->id ? 'selected' : '' }}
+                            value="{{ $grade->id }}" >{{ $grade->name }}</option>
+                    @endforeach
+
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="brand">Марка</label>
+                <select class="form-control mb-3" id="brand" name="brand_id">
+                    <option value="" selected disabled>Выберите марку</option>
+                    @foreach($brands as $brand)
+                        <option
+                            {{ old('brand_id') == $brand->id ? 'selected' : '' }}
+                            value="{{ $brand->id }}" >{{ $brand->name }}</option>
+                    @endforeach
+
+                </select>
+            </div>
+
+
+            <div class="mb-3">
                 <label for="image" class="form-label">Изображение</label>
                 <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image" accept="image/*">
                 @error('image')

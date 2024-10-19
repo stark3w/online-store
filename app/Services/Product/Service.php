@@ -9,6 +9,7 @@ use App\Models\Flavor;
 use App\Models\Grade;
 use App\Models\Product;
 use App\Models\Tag;
+use Illuminate\Support\Facades\DB;
 
 
 class Service
@@ -36,19 +37,25 @@ class Service
     {
         $catalogs = Catalog::all();
         $tags = Tag::all();
+        $flavors = Flavor::all();
+        $grades = Grade::all();
+        $brands = Brand::all();
 
-        return compact('catalogs', 'tags');
+        return compact('catalogs', 'tags', 'flavors', 'grades', 'brands');
     }
 
     public function store($data)
     {
-        $tags = $data['tags'];
-        unset($data['tags']);
+        return DB::transaction(function () use ($data) {
+            $tags = $data['tags'];
+            unset($data['tags']);
 
-        $product = Product::create($data);
-        $product->tags()->sync($tags);
+            $product = Product::create($data);
+            $product->tags()->sync($tags);
 
-        return $product;
+            return $product;
+        });
+
     }
 
     public function show($catalog_slug, $product_slug)
@@ -70,13 +77,16 @@ class Service
 
     public function update($data, $product)
     {
-        $tags = $data['tags'];
-        unset($data['tags']);
+        DB::transaction(function () use ($data, $product) {
+            $tags = $data['tags'];
+            unset($data['tags']);
 
-        $product->update($data);
-        $product->tags()->sync($tags);
+            $product->update($data);
+            $product->tags()->sync($tags);
 
-        return $product;
+            return $product;
+        });
+
     }
 
     public function destroy(string $id)

@@ -44,6 +44,7 @@ class ProductController extends BaseController
         $data = $request->validated();
         $product = $this->service->store($data);
 
+
         return redirect()->route('products.show', [
             'product_slug' => $product->slug,
             'catalog_slug' => $product->catalog->slug,
